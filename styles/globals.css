@@ -9,3 +9,7 @@ body {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+.ais-Hits-item {
+    @apply bg-white my-2 p-4 rounded-lg shadow-md;
+}

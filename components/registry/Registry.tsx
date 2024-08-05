@@ -74,7 +74,7 @@ const Registry: React.FC<RegistryProps> = ({
                         <RefinementList attribute="name" />
                     </div>
                     <EmptyQueryBoundary fallback={null}>
-                        <Hits className="mt-1" hitComponent={Hit} />
+                        <Hits className="" hitComponent={Hit} />
                     </EmptyQueryBoundary>
                 </InstantSearch>
             </div>
@@ -85,6 +85,7 @@ const Registry: React.FC<RegistryProps> = ({
                         {...node}
                         publisherName={node.publisher?.id}
                         isLoggedIn={false}
+
                     />
                 ))}
             </div>
