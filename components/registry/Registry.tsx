@@ -54,7 +54,7 @@ const Registry: React.FC<RegistryProps> = ({
                 buttonText="Get Started"
                 buttonLink="/nodes"
             />
-            <div className="mt-2 md:w-1/2 w-full mt-5">
+            <div className="md:w-full w-full mt-5">
                 <InstantSearch
                     searchClient={searchClient}
                     indexName={NODES_SEARCH_INDEX}
@@ -74,7 +74,10 @@ const Registry: React.FC<RegistryProps> = ({
                         <RefinementList attribute="name" />
                     </div>
                     <EmptyQueryBoundary fallback={null}>
-                        <Hits className="" hitComponent={Hit} />
+                        <Hits
+                            className=""
+                            hitComponent={Hit}
+                        />
                     </EmptyQueryBoundary>
                 </InstantSearch>
             </div>

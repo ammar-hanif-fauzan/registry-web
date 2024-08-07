@@ -10,6 +10,11 @@ body {
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+
+.ais-Hits-list {
+    @apply grid grid-cols-4 gap-2;
+}
+
 .ais-Hits-item {
-    @apply bg-white my-2 p-4 rounded-lg shadow-md;
+    @apply bg-gray-800 my-2 p-4 rounded-lg shadow-md;
 }
