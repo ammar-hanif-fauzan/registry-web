@@ -60,8 +60,10 @@
         );
     
         useEffect(() => {
+            console.log('InstantSearchUiState:', instantSearchUiState);
             setQuery(instantSearchUiState.query);
-            setPage(0); // Reset pagination ke halaman pertama
+            console.log('Query:', instantSearchUiState.query);
+            // setPage(0); // Reset pagination ke halaman pertama
         }, [instantSearchUiState]);
     
         const plugins = useMemo(() => {
@@ -99,6 +101,27 @@
                             setInstantSearchUiState({
                                 query: item.name,
                             });
+                            console.log(autocompleteContainer.current)
+                            setInstantSearchUiState({
+                                query: item.name,
+                            });
+                            // if (autocompleteContainer.current) {
+                            //     if (autocompleteContainer.current.querySelector('.aa-Input')) {
+                            //         console.log('Input:', autocompleteContainer.current.querySelector('.aa-Input'));
+                            //         autocompleteContainer.current.querySelector('.aa-Input')!.value = item.name;
+                            //     }
+                            // }
+                            const inputElement = document.querySelector('.aa-Input');
+                            console.log('Input:', inputElement);
+                            if (inputElement) {
+                                console.log('Input:', inputElement);
+                                inputElement.value = item.name;
+                            }
+                            console.log('Query:', autocompleteContainer.current?.querySelector('.aa-Input')?.value);
+                            console.log('Query:', autocompleteContainer.current?.innerHTML);
+                            // set the value of the input
+                            // document.querySelector('.aa-Input')?.value = item.name;
+                            // console.log('Value:', document.querySelector('.aa-Input')?.value);
                             searchClient.search([{
                                 indexName: INSTANT_SEARCH_INDEX_NAME,
                                 query: item.name,
@@ -106,14 +129,15 @@
                                 hitsPerPage: 10,
                                 },
                             }]).then(({ results }) => {
-                                console.log(results); // Atau update state/UI dengan hasil pencarian ini
+                                recentSearches.data!.addItem({ id:item.name, label: item.name });
+
                             }).catch(err => {
                                 console.error('Pencarian gagal:', err);
                             });
                             // Memperbarui query dan mereset pagination setelah pemilihan item
-                            debouncedSetInstantSearchUiState({
-                                query: item.name,
-                            });
+                            // debouncedSetInstantSearchUiState({
+                            //     query: item.name,
+                            // });
                         },
                         getItems(params) {
                             if (!params.state.collections) {
@@ -163,7 +187,6 @@
             insights: true,
             plugins,
             onReset() {
-            setInstantSearchUiState({ query: '' });
             },
             onSubmit({ state }) {
                 console.log('Query submit:', state.query);
@@ -192,7 +215,6 @@
             render({ children }, root) {
             if (!panelRootRef.current || rootRef.current !== root) {
                 rootRef.current = root;
-    
                 panelRootRef.current?.unmount();
                 panelRootRef.current = createRoot(root);
             }
@@ -204,7 +226,9 @@
         return () => autocompleteInstance.destroy();
         }, [plugins]);
     
-        return <div className={className} ref={autocompleteContainer} />;
+        return <div className={className}>
+            <div ref={autocompleteContainer} />
+        </div>;
     }
 
     export default Autocomplete;
