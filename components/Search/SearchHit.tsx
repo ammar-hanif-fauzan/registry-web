@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { Highlight, Snippet } from 'react-instantsearch'
+import Link from 'next/link'
 
 function Hit({ hit }) {
     return (
-        <article className="hit">
+        <Link href={`/nodes/${hit.id}`}>
+            <article className="hit">
             <h1>
                 <Snippet hit={hit} attribute="name" className='font-bold text-white' />
             </h1>
@@ -19,6 +21,7 @@ function Hit({ hit }) {
             </h1>
            </div>
         </article>
+        </Link>
     )
 }
 

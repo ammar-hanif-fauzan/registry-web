@@ -9,6 +9,7 @@ import {
     HierarchicalMenu,
     Hits,
     InstantSearch,
+    Pagination,
 } from 'react-instantsearch';
 import Autocomplete from '@/components/Search/Autocomplete';
 import Hit from '../Search/SearchHit';
@@ -80,6 +81,7 @@ const Registry: React.FC<RegistryProps> = ({
                     <div className="container wrapper">
                         <div>
                             <Hits hitComponent={Hit} />
+                            <Pagination/>
                             {/* Pagination dihilangkan, bisa ditambahkan kembali jika diperlukan */}
                         </div>
                     </div>
