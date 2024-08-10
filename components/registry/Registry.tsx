@@ -81,7 +81,7 @@ const Registry: React.FC<RegistryProps> = ({
                     <div className="container wrapper">
                         <div>
                             <Hits hitComponent={Hit} />
-                            <Pagination/>
+                            {/* <Pagination/> */}
                             {/* Pagination dihilangkan, bisa ditambahkan kembali jika diperlukan */}
                         </div>
                     </div>
