@@ -13,7 +13,6 @@ import {
 } from 'react-instantsearch';
 import Autocomplete from '@/components/Search/Autocomplete';
 import Hit from '../Search/SearchHit';
-// import Panel from '../Search/Panel';
 
 import {
     INSTANT_SEARCH_HIERARCHICAL_ATTRIBUTES,
@@ -81,8 +80,6 @@ const Registry: React.FC<RegistryProps> = ({
                     <div className="container wrapper">
                         <div>
                             <Hits hitComponent={Hit} />
-                            {/* <Pagination/> */}
-                            {/* Pagination dihilangkan, bisa ditambahkan kembali jika diperlukan */}
                         </div>
                     </div>
                     <div className="absolute right-0 mt-3 -bottom-14">

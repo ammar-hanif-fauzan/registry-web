@@ -60,10 +60,7 @@
         );
     
         useEffect(() => {
-            console.log('InstantSearchUiState:', instantSearchUiState);
             setQuery(instantSearchUiState.query);
-            console.log('Query:', instantSearchUiState.query);
-            // setPage(0); // Reset pagination ke halaman pertama
         }, [instantSearchUiState]);
     
         const plugins = useMemo(() => {
@@ -74,8 +71,6 @@
                     return {
                         ...source,
                         onSelect({ item }) {
-
-                            console.log('Recent Search Selected:', item);
                             setInstantSearchUiState({
                             query: item.name,
                             });
@@ -97,31 +92,13 @@
                         ...source,
                         sourceId: 'querySuggestionsPlugin',
                         onSelect({ item }) {
-                            console.log('Klik:', item);
                             setInstantSearchUiState({
                                 query: item.name,
                             });
-                            console.log(autocompleteContainer.current)
-                            setInstantSearchUiState({
-                                query: item.name,
-                            });
-                            // if (autocompleteContainer.current) {
-                            //     if (autocompleteContainer.current.querySelector('.aa-Input')) {
-                            //         console.log('Input:', autocompleteContainer.current.querySelector('.aa-Input'));
-                            //         autocompleteContainer.current.querySelector('.aa-Input')!.value = item.name;
-                            //     }
-                            // }
                             const inputElement = document.querySelector('.aa-Input');
-                            console.log('Input:', inputElement);
                             if (inputElement) {
-                                console.log('Input:', inputElement);
                                 inputElement.value = item.name;
                             }
-                            console.log('Query:', autocompleteContainer.current?.querySelector('.aa-Input')?.value);
-                            console.log('Query:', autocompleteContainer.current?.innerHTML);
-                            // set the value of the input
-                            // document.querySelector('.aa-Input')?.value = item.name;
-                            // console.log('Value:', document.querySelector('.aa-Input')?.value);
                             searchClient.search([{
                                 indexName: INSTANT_SEARCH_INDEX_NAME,
                                 query: item.name,
@@ -130,21 +107,17 @@
                                 },
                             }]).then(({ results }) => {
                                 recentSearches.data!.addItem({ id:item.name, label: item.name });
-
                             }).catch(err => {
                                 console.error('Pencarian gagal:', err);
                             });
-                            // Memperbarui query dan mereset pagination setelah pemilihan item
-                            // debouncedSetInstantSearchUiState({
-                            //     query: item.name,
-                            // });
+                            debouncedSetInstantSearchUiState({
+                                query: item.name,
+                            });
                         },
                         getItems(params) {
                             if (!params.state.collections) {
-                                console.log('Query kosong, tidak ada item yang akan dikembalikan.');
                                 return [];
                             }
-                            console.log('Items ditemukan:', source.getItems(params));
                             return source.getItems(params);
                         },
                         templates: {
@@ -171,15 +144,6 @@
         if (!autocompleteContainer.current) {
             return;
         }
-
-        console.log('Query:', query);
-        console.log('Plugins:', plugins);
-        console.log('AutocompleteProps:', autocompleteProps);
-        console.log('SearchClient:', searchClient);
-        console.log('INSTANT_SEARCH_INDEX_NAME:', INSTANT_SEARCH_INDEX_NAME);
-        
-
-            // Corrected code
         const autocompleteInstance = autocomplete({
             ...autocompleteProps,
             container: autocompleteContainer.current,
@@ -189,7 +153,6 @@
             onReset() {
             },
             onSubmit({ state }) {
-                console.log('Query submit:', state.query);
                 setInstantSearchUiState({ query: state.query });
 
                 searchClient.search([{
@@ -199,9 +162,7 @@
                     hitsPerPage: 10,
                     },
                 }]).then(({ results }) => {
-                    console.log(results); // Atau update state/UI dengan hasil pencarian ini
                 }).catch(err => {
-                    console.error('Pencarian gagal:', err);
                 });
             },
             onStateChange({ prevState, state }) {
